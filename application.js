@@ -1,9 +1,12 @@
 var bokug = {};
 
+(function() {
+	
 YUI({
+	filter: 'debug',
 	modules: {
 		'gallery-jsonp': {
-			fullpath:   'http://yui.yahooapis.com/gallery-2009.10.27/build/gallery-jsonp/gallery-jsonp-min.js',
+			fullpath:   'http://yui.yahooapis.com/gallery-2009.10.27/build/gallery-jsonp/gallery-jsonp.js',
 			requires:   ['selector-css3'],
 			optional:   [],
 			supersedes: []
@@ -16,48 +19,42 @@ YUI({
 }).use( 'node-base', function(Y) {
 /* *********************************************** */
 
-// setup
-	bokug.Init = {};
-
 // shortcuts
 	var	b = bokug,
 		d = document,
-		init = bokug.Init;
+		
+// local variables
+		container,
+		tweet;
 
 // various startup functions
-init.sayHello = function() {
-	console.log( 'hi' );
-};
-init.sayBye = function() {
+function sayHello() {
+	console.log( 'saying hello' );
+}
+function sayBye() {
 	console.log( 'bye-bye' );
-};
-init.putIt = function( text ) {
-	var node = d.getElementById( 'tweets' );
-	node.appendChild( d.createTextNode( text ) );
-};	
-init.loadTweets = function() {
-	Y.use('bokug-twitter', function(Y) {
-		console.log( 'bokug-twitter loaded' );
-		var tweet = new b.Twitter( 29460607, init.putIt );
-		var ans = tweet.send();
-		debugger;
+}
+function loadTweets() {
+	Y.use('bokug-twitter', function(Y) {		
+		tweet = new b.Twitter( 29460607, function() {
+			container = d.getElementById( 'tweets' );
+			container.innerHTML = this.makeList();
+		});					
+		tweet.send();
 	});
-};
+}
 
 // the order to run them in
-init.run = function() {
-	init.sayHello();
-	init.sayBye();
-	init.loadTweets();
+function init() {
+	sayHello();
+	sayBye();
+	loadTweets();
 };
 
 // start application
-Y.on( 'domready', init.run );
+Y.on( 'domready', init );
 
 /* *********************************************** */
 });
 
-
-
-
-
+})();
