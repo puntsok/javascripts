@@ -1,0 +1,9 @@
+.yui-skin-sam .yui-console-entry-pass {
+	background-color: green;
+}
+.yui-skin-sam .yui-console-entry-fail {
+	background-color: red;
+}
+body {
+	background-color: beige;
+}
