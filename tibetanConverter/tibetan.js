@@ -59,18 +59,43 @@ var
 		
 		'ཉྭ' : '',
 		'རྙ' : '',
-		'སྙ' : ''
+		'སྙ' : '',
+		
+		'ཏྲ' : '',
+		'ཏྭ' : '',
+		'རྟ' : '',
+		'ལྟ ' : '',
+		'སྟ' : '',
+		
+		'ཐྲ' : '',
+		
+		'དྲ' : '',
+		'དྭ' : '',
+		'རྡ' : '',
+		'ལྡ' : '',
+		'སྡ' : '',
+		
+		'ནྲ' : '',
+		'རྣ' : '',
+		'སྣ' : '',
+		'སྣྲ' : '',
+		
+		'པྱ' : '',
+		'པྲ' : '',
+		'ལྤ' : '',
+		'སྤ' : '',
+		'སྤྱ' : '',
+		'སྤྲ' : ''
 	},
 	replaceStackRegex = new RegExp( '(.[ྐྑྒྔྕྖྗྙྟྠྡྣྤྥྦྨྩྪྫྭྮྯཱྱྲླྴྶྷྸ]+)', 'g' ),
 	
 	tibetanConsonants = 'ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ',
 	tibetanComposedConsonantsWithU = '',
 	tibetanComposedStacks = '' +
-		'' + 
-		'' +
-		'' + '' + '' + '',
+		'' + '' +'' + '' + '' + '' + '' + '' +
+		'' + '' + '',
 	
-	replaceVowelRegex = new RegExp( '([' +tibetanConsonants + tibetanComposedStacks +'])ུ' , 'g' ),
+	replaceVowelRegex = new RegExp( '([' + tibetanConsonants + tibetanComposedStacks +'])ུ' , 'g' ),
 	replaceVowels = {
 		'ཀ': '',
 		'ཁ': '',
@@ -104,6 +129,7 @@ var
 		'ཨ': ''
 	},
 	
+	otherSingleCharacters = '་།༄༅༡༢༣༤༥༦༧༨༩༠ིེོ',
 	
 	i; // iterator
 	
@@ -133,7 +159,9 @@ Tibetan.prototype = {
 	},
 	
 	getSubset: function() {
-		return tibetanComposedStacks +
+		return tibetanConsonants +
+			otherSingleCharacters +
+			tibetanComposedStacks +
 			tibetanComposedConsonantsWithU +
 			this.rv( tibetanComposedStacks.replace( /(.)/g, "$1ུ" ) );
 	}
