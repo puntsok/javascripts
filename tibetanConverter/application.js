@@ -20,7 +20,13 @@ YUI({
 		b     = BOKUG;
 	
 	var t = new b.Tibetan();
-	debugger;
+	var ta = Y.one( '#textarea-node' );
+	
+	var initialText = ta.get( 'innerHTML' );
+	
+	var result = t.getComposed( initialText );
+	
+	ta.setContent( result );
 
 	
 	// end of app ***************************************************
