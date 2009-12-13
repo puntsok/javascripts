@@ -1,7 +1,7 @@
 (function() {
 	
 var
-	text,  // general local variable to hold string data
+	text,
 	
     /* chars = {
 		K : 'ཀ', KH : 'ཁ', G : 'ག', NG  : 'ང',
@@ -64,6 +64,7 @@ var
 	replaceStackRegex = new RegExp( '(.[ྐྑྒྔྕྖྗྙྟྠྡྣྤྥྦྨྩྪྫྭྮྯཱྱྲླྴྶྷྸ]+)', 'g' ),
 	
 	tibetanConsonants = 'ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ',
+	tibetanComposedConsonantsWithU = '',
 	tibetanComposedStacks = '' +
 		'' + 
 		'' +
@@ -129,6 +130,12 @@ Tibetan.prototype = {
 	
 	getComposed: function( text ) {
 		return this.rv( this.rs( text ) );
+	},
+	
+	getSubset: function() {
+		return tibetanComposedStacks +
+			tibetanComposedConsonantsWithU +
+			this.rv( tibetanComposedStacks.replace( /(.)/g, "$1ུ" ) );
 	}
 	
 };

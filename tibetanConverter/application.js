@@ -26,6 +26,8 @@ YUI({
 	
 	var result = t.getComposed( initialText );
 	
+	debugger;
+	
 	ta.setContent( result );
 
 	
