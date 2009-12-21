@@ -5,14 +5,12 @@ window.onload = function() {
 	
 	
 // -------------------------------------------------------------------
-YUI().use('node', 'event', 'event-simulate', 'event-custom', function(Y) {
+YUI().use('*', function(Y) {
 	
-	debugger;
-	
-	var A = Y.Array,
+	var 
 	    D = document,
 		gContext = "",
-		B = Y.one( 'body' ),
+		B = D.getElementsByTagName( 'body' )[0],
 		
 		kcodes = {
 			"192" : "`",
@@ -155,9 +153,8 @@ YUI().use('node', 'event', 'event-simulate', 'event-custom', function(Y) {
 		tcontext = {
 			"f": "stackDown"
 			
-		},
-		t = Y.one( '#tibetan-input' ),
-		t2= D.getElementById( 'tibetan-input2' );
+		};
+
 				
 		function insertAtCursor(myField, myValue) {		
 			var origScrollHeight = myField.scrollHeight;
@@ -173,14 +170,28 @@ YUI().use('node', 'event', 'event-simulate', 'event-custom', function(Y) {
 		  else if (myField.selectionStart || myField.selectionStart == '0') {
 		    var startPos = myField.selectionStart;
 		    var endPos = myField.selectionEnd;
-		    myField.value = myField.value.substring(0, startPos) +
+		    var tempstring = myField.value.substring(0, startPos) +
 		                   myValue +
 		                   myField.value.substring(endPos, myField.value.length);
+		
+		
+			var tempstringlen = tempstring.length;
+			var cnsstring = BOKUG.Tibetan.getComposed( tempstring );
+			var cnsstringlen = cnsstring.length;
+			
+			var offset = tempstringlen - cnsstringlen;
+			
+			if (offset > 0) {
+				console.log( 'offset: ' + offset );
+			}
+			
+		
+			myField.value = cnsstring;
 
 			var newScrollHeight = myField.scrollHeight;
 			var len = myField.value.length;		
-			startPos++;
-			endPos++;
+			startPos = startPos + 1 - offset;
+			endPos = endPos + 1 - offset;
 
 			if ( endPos === len && newScrollHeight > origScrollHeight ) {
 				myField.scrollByLines( 100 );
@@ -194,19 +205,10 @@ YUI().use('node', 'event', 'event-simulate', 'event-custom', function(Y) {
 		  }
 		}
 	
-	var elem = Y.Node.create( '<textarea style="font-size: 250%" name="tibetan-input3" rows="8" cols="8" id="tibetan-input3"></textarea>' );
-	B.append( elem );
+	var elem = '<textarea name="tibetan-input3" rows="8" cols="8" id="tibetan-input3"></textarea>';
+	B.innerHTML += elem;
 	
     t3 = D.getElementById( 'tibetan-input3' );
-	
-	t.on( 'keydown' , function(e) {		
-		console.log( e );
-		console.log( 'e.keyCode  = ' + e.keyCode );
-		console.log( 'e.shiftKey = ' + e.shiftKey );
-		console.log( 'e.ctrlKey  = ' + e.ctrlKey );
-		console.log( 'e.altKey   = ' + e.altKey );
-		console.log( 'e.metaKey  = ' + e.metaKey );		
-	});
 	
 	
 	t3.addEventListener( 'keydown', function(e) {

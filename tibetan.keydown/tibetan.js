@@ -1,7 +1,7 @@
 (function() {
 
-BOKUG = window.BOKUG || {};
 
+BOKUG = window.BOKUG || {};
 	
 var
 	text,
@@ -34,6 +34,9 @@ var
 		'རྐྱ' : '',
 		'སྐྱ' : '',
 		'སྐྲ' : '',
+		'ྱ' : '', // composed addition for iphone
+		'ྱ' : '', // composed addition for iphone
+		'ྲ' : '', // composed addition for iphone
 		
 		'ཁྱ' : '',
 		'ཁྲ' : '',
@@ -47,6 +50,10 @@ var
 		'ལྒ' : '',
 		'སྒ' : '',
 		'རྒྱ' : '',
+		'སྒྱ' : '',
+		'སྒྲ' : '',
+		'གྲྭ' : '',
+		'རྒྱ' : '', //
 		'སྒྱ' : '',
 		'སྒྲ' : '',
 		'གྲྭ' : '',
@@ -193,7 +200,7 @@ var
 function Tibetan() {
 	//this.chars = chars;
 }
-Tibetan.prototype = {
+Tibetan = {
 	
 	// replace stacks method:
 	rs: function( text ) {
