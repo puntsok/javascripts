@@ -154,11 +154,104 @@ YUI().use('*', function(Y) {
 			"f": "stackDown"
 			
 		};
+		
+		var charCodes = {
+			"96": "`",
+			"49" : "1",
+			"50" : "2",
+			"51" : "3",
+			"52" : "4",
+			"53" : "5",
+			"54" : "6",
+			"55" : "7",
+			"56" : "8",
+			"57" : "9",
+			"48" : "0",
+			"45": "-",
+			"61": "=",
+			
+			"113" : "q",
+			"119" : "w",
+			"101" : "e",
+			"114" : "r",
+			"116" : "t",
+			"121" : "y",
+			"117" : "u",
+			"105" : "i",
+			"79" : "o",
+			"80" : "p",
+			"91" : "[",
+			"93" : "]",
+			"92" : "\\",
+			
+			"97": "a",
+			"115": "s",
+			"100": "d",
+			"102": "f",
+			"103": "g",
+			"104": "h",
+			"106": "j",
+			"107": "k",
+			"108": "l",
+			"59": ";",
+			"39": "'",
+			
+			"122": "z",
+			"120": "x",
+			"99": "c",
+			"118": "v",
+			"98": "b",
+			"110": "n",
+			"109": "m",
+			"44": ",",
+			"46": ".",
+			"47": "/",
+			
+			"32": " "	
+		};
+		
+		var wylie = {
+			
+			"q": "འ",
+			"w": "ཝ",
+			"e": "ེ",
+			"r": "ར",
+			"t": "ཏ",
+			"y": "ཡ",
+			"u": "ུ",
+			"i": "ི",
+			"o": "ོ",
+			"p": "པ",
+			"a": "ཨ",
+			"s": "ས",
+			"d": "ད",
+			"f": "།",
+			"g": "ག",
+			"h": "ཧ",
+			"j": "ཇ",
+			"k": "ཀ",
+			"l": "ལ",
+			"z": "ཟ",
+			"x": "ཚ",
+			"c": "ཅ",
+			"v": " ",
+			"b": "བ",
+			"n": "ན",
+			"m": "མ",
+			" ": "་"		
+			
+		};
+		
+		var wylieContext = {
+			"k": "k",
+			"": "",
+			
+			
+		};
 
 				
 		function insertAtCursor(myField, myValue) {		
-			var origScrollHeight = myField.scrollHeight;
-			
+			var origScrollHeight = myField.scrollHeight;		
 		  //IE support
 		  if (document.selection) {
 		    myField.focus();
@@ -171,8 +264,8 @@ YUI().use('*', function(Y) {
 		    var startPos = myField.selectionStart;
 		    var endPos = myField.selectionEnd;
 		    var tempstring = myField.value.substring(0, startPos) +
-		                   myValue +
-		                   myField.value.substring(endPos, myField.value.length);
+		        myValue +
+		        myField.value.substring(endPos, myField.value.length);
 		
 		
 			var tempstringlen = tempstring.length;
@@ -204,28 +297,32 @@ YUI().use('*', function(Y) {
 		    myField.value += myValue;
 		  }
 		}
+
+
+
+
+
+
 	
-    t3 = D.getElementById( 'tibetan-input3' );
-	
-	
-	t3.addEventListener( 'keydown', function(e) {
+    t3 = D.getElementById( 'tibetan-input3' );	
+	t3.addEventListener( 'keypress', function(e) {
 		
-		var kc = e.keyCode;
-		console.log( 'kc: ' + kc );
+		var cc = e.charCode;
+		console.log( 'cc: ' + cc );
 		
-		if ( kcodes[ kc ] && tcontext[ kcodes[kc] ]    ) {
-			gContext = tcontext[ kcodes[kc] ];
+		if ( charCodes[ cc ] && tcontext[ charCodes[ cc ] ]    ) {
+			gContext = tcontext[ charCodes[ cc ] ];
 			e.preventDefault();
 		}
 		
-		if ( gContext == 'stackDown' && kcodes[ kc ] && tfkeys[ kcodes[kc] ]    ) {
-			insertAtCursor( t3, tfkeys[ kcodes[kc] ] );	
+		if ( gContext == 'stackDown' && charCodes[ cc ] && tfkeys[ charCodes[ cc ] ]    ) {
+			insertAtCursor( t3, tfkeys[ charCodes[ cc ] ] );	
 			gContext = '';		
 			e.preventDefault();
 		}
 		
-		else if ( kcodes[ kc ] && tkeys[ kcodes[kc] ]    ) {
-			insertAtCursor( t3, tkeys[ kcodes[kc] ] );
+		else if ( charCodes[ cc ] && wylie[ charCodes[ cc ] ]    ) {
+			insertAtCursor( t3, wylie[ charCodes[ cc ] ] );
 			gContext = '';		
 			e.preventDefault();
 		}

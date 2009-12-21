@@ -8,7 +8,7 @@
 	src: url('jomolhari-id.svg#Jomolhari-ID') format('svg');
 }
 
-textarea {
+textarea#tibetan-input3 {
 	font-size: 180%;
 	width: 100%;
 	font-family: jomolhari-id;
